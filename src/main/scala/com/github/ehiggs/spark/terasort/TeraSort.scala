@@ -58,8 +58,11 @@ object TeraSort {
     val sc = new SparkContext(conf)
 
     val dataset = sc.newAPIHadoopFile[Array[Byte], Array[Byte], TeraInputFormat](inputFile)
+    val parts = conf.get("spark.sql.shuffle.partitions", dataset.partitions.length.toString)
+
     val sorted = dataset.repartitionAndSortWithinPartitions(
-      new TeraSortPartitioner(dataset.partitions.length))
+//      new TeraSortPartitioner(dataset.partitions.length))
+      new TeraSortPartitioner(parts.toInt))
     sorted.saveAsNewAPIHadoopFile[TeraOutputFormat](outputFile)
     
     sc.stop()

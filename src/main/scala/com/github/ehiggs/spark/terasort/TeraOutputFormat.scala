@@ -106,11 +106,11 @@ class TeraOutputFormat extends FileOutputFormat[Array[Byte], Array[Byte]] {
     new TeraRecordWriter(fileOut, job)
   }
 
-  override def getOutputCommitter(context : TaskAttemptContext) : OutputCommitter = {
-    if (committer == null) {
-      val output = getOutputPath(context)
-      committer = new FileOutputCommitter(output, context)
-    }
-    committer
-  }
+//  override def getOutputCommitter(context : TaskAttemptContext) : OutputCommitter = {
+//    if (committer == null) {
+//      val output = getOutputPath(context)
+//      committer = new FileOutputCommitter(output, context)
+//    }
+//    committer
+//  }
 }

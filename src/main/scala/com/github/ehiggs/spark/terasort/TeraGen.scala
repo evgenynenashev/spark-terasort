@@ -47,7 +47,8 @@ object TeraGen {
       .setAppName(s"TeraGen ($size)")
     val sc = new SparkContext(conf)
 
-    val parts = sc.defaultParallelism
+    // val parts = sc.defaultParallelism
+    val parts = conf.get( "spark.sql.shuffle.partitions" ).toInt
     val recordsPerPartition = outputSizeInBytes / 100 / parts.toLong
     val numRecords = recordsPerPartition * parts.toLong
 
